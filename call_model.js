@@ -14,6 +14,7 @@ natural.BayesClassifier.load("./model.json", null, function (err, classifier) {
     const filteredNewText = tokenizedNewText.filter(
       (token) => !vietnameseStopwords.includes(token.toLowerCase())
     )
+
     const prediction = classifier.classify(filteredNewText)
     console.log(`Topic prediction for "${newText}": ${prediction}`)
   }
