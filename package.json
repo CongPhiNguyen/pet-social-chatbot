@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "natural": "^6.2.0",
+    "vietnamese-stopwords": "^0.0.2"
+  }
+}
