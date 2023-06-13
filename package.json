@@ -4,6 +4,7 @@
     "start:dev": "nodemon server.js --ignore client"
   },
   "dependencies": {
+    "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "natural": "^6.2.0",
     "vietnamese-stopwords": "^0.0.2"

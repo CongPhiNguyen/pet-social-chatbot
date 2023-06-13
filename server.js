@@ -1,3 +1,4 @@
+require("dotenv").config()
 const cluster = require("cluster")
 const cpuCount = require("os").cpus().length
 const express = require("express")
