@@ -7,7 +7,6 @@ const fs = require("fs")
 
 const app = express()
 app.use(express.json())
-const http = require("http").createServer(app)
 
 app.use("/api", require("./routes/chatRouter"))
 
@@ -33,7 +32,7 @@ if (cluster.isMaster) {
     cluster.fork()
   })
 } else {
-  http.listen(port, () => {
+  app.listen(port, () => {
     console.log("Server is running at port " + port)
   })
 }
