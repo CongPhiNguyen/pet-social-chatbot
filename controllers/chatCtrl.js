@@ -1,6 +1,11 @@
 const natural = require("natural")
 const tokenizer = new natural.WordTokenizer()
 const vietnameseStopwords = require("vietnamese-stopwords")
+function getRandomValueFromArray(arr) {
+  const randomIndex = Math.floor(Math.random() * arr.length)
+  return arr[randomIndex]
+}
+
 const chatCtrl = {
   chatBasic: async (req, res) => {
     const { message } = req.body
@@ -9,8 +14,11 @@ const chatCtrl = {
       (token) => !vietnameseStopwords.includes(token.toLowerCase())
     )
     const prediction = global.basicChatModel.classify(filteredNewText)
-    console.log(`Topic prediction for "${message}": ${prediction}`)
-    res.status(200).send({ success: true, topic: prediction })
+    return res.status(200).send({
+      success: true,
+      topic: prediction,
+      reply: getRandomValueFromArray(global.reply[prediction])
+    })
   }
 }
 

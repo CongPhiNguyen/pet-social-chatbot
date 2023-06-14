@@ -3,6 +3,7 @@ const cluster = require("cluster")
 const cpuCount = require("os").cpus().length
 const express = require("express")
 const natural = require("natural")
+const fs = require("fs")
 
 const app = express()
 app.use(express.json())
@@ -18,6 +19,9 @@ natural.BayesClassifier.load("./model.json", null, function (err, classifier) {
     global.basicChatModel = classifier
   }
 })
+
+let rawdata = fs.readFileSync("./data/reply.json")
+global.reply = JSON.parse(rawdata)
 
 const port = process.env.PORT || 5000
 if (cluster.isMaster) {

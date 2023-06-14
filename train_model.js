@@ -3,13 +3,8 @@ const tokenizer = new natural.WordTokenizer()
 const vietnameseStopwords = require("vietnamese-stopwords")
 const fs = require("fs")
 
-const readWord = (filePath) => {
-  const invite_gout = fs.readFileSync(filePath, {
-    encoding: "utf8",
-    flag: "r"
-  })
-  return invite_gout.replaceAll("\r", "").split("\n")
-}
+let rawdata = fs.readFileSync("./data/question.json")
+let question = JSON.parse(rawdata)
 
 const handleWord = (words) => {
   const tokenizedData = words.map((text) => tokenizer.tokenize(text))
@@ -22,20 +17,20 @@ const handleWord = (words) => {
 const topics = [
   {
     name: "Mời đi chơi",
-    file: "./data/invite_gout.txt"
+    file: "./data/question/invite_gout.txt"
   },
   {
     name: "Đi ngủ",
-    file: "./data/wanna_sleep.txt"
+    file: "./data/question/wanna_sleep.txt"
   }
 ]
+
 const classifier = new natural.BayesClassifier()
 const main = () => {
-  for (const topic of topics) {
-    const words = readWord(topic.file)
-    const handleList = handleWord(words)
+  for (const key of Object.keys(question)) {
+    const handleList = handleWord(question[key])
     for (const handle of handleList) {
-      classifier.addDocument(handle, topic.name)
+      classifier.addDocument(handle, key)
     }
   }
 }
