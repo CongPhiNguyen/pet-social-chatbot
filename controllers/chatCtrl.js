@@ -42,7 +42,6 @@ const chatCtrl = {
     }
 
     const responses = await sessionClient.detectIntent(request)
-    console.log(responses)
     const { queryResult } = responses[0]
     let dialogFlowFeature = {}
     if (queryResult?.intent?.displayName === "say_gau") {
